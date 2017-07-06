@@ -1,7 +1,10 @@
 package com.example.krystian.myapp;
 
 import java.io.IOException;
+import java.text.ChoiceFormat;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,6 +36,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.database.Cursor;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -52,14 +59,15 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
     private static final String TAG = "Debug";
     private Boolean flag = false;
 
-    public String longitude = "0";
-    public String latitude = "0";
+    public double longitude = 0;
+    public double latitude = 0;
     public String cityName = "Koniec Swiata";
     public String currentDate = "0";
 
     Button btnViewAllData = null;
     Button btnAddNewLocation = null;
 
+    ArrayList<MyLocation> listaLokalizacji;
     DatabaseHelper db;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +91,7 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
 
         btnViewAllData = (Button) findViewById(R.id.btnViewBase);
 
-
+        listaLokalizacji = new ArrayList<MyLocation>();
         btnAddNewLocation = (Button) findViewById(R.id.addToBase);
         btnAddNewLocation.setOnClickListener(
                 new View.OnClickListener() {
@@ -95,7 +103,7 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
         btnViewAllData.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        viewAll();
+                       viewAll();
                     }
                 });
 
@@ -108,8 +116,8 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
 
             Log.v(TAG, "onClick");
 
-            editLocation.setText("Please!! move your device to" +
-                    " see the changes in coordinates." + "\nWait..");
+            editLocation.setText("Musisz poruszyć kilka razy telefonem," +
+                    " żeby łatwiej pobrać mi dane :D." + "\n");
 
             pb.setVisibility(View.VISIBLE);
             locationListener = new MyLocationListener();
@@ -121,7 +129,7 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
                     .GPS_PROVIDER, 5000, 10, locationListener);
 
         } else {
-            alertbox("Gps Status!!", "Your GPS is: OFF");
+            alertbox("Status GPS!!", "Twój GPS jest: WYŁĄCZONY");
         }
     }
 
@@ -140,9 +148,9 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
         /*----------Method to create an AlertBox ------------- */
         protected void alertbox(String title, String mymessage){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("Your Device's GPS is Disable")
-                    .setCancelable(false).setTitle("** GPS Status **")
-                    .setPositiveButton("Gps On", new DialogInterface.OnClickListener(){
+            builder.setMessage("Twój GPS jest wyłączony")
+                    .setCancelable(false).setTitle("** Status GPS **")
+                    .setPositiveButton("Gps Włączone", new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int id){
                             // finish the current activity
                             // AlertBoxAdvance.this.finish();
@@ -151,7 +159,7 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
                             dialog.cancel();
                         }
                     })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+                    .setNegativeButton("Anuluj", new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int id){
                             // cancel dialog box
                             dialog.cancel();
@@ -168,14 +176,16 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
                 editLocation.setText("");
                 pb.setVisibility(View.INVISIBLE);
 
-                Toast.makeText(getBaseContext(), "Location chaned : Lat: " + loc.getLatitude() + "Lng: "
-                        + loc.getLongitude(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getBaseContext(), "Nowa lokacja: N: " + loc.getLatitude() + "E: "
+                       // + loc.getLongitude(), Toast.LENGTH_SHORT).show();
 
-                longitude = "Longitude: " + loc.getLongitude();
-                Log.v(TAG, longitude);
+                longitude = loc.getLongitude();
+                String lon = "Szerokość : " + longitude;
+                Log.v(TAG, lon);
 
-                latitude = "Latitude: " + loc.getLatitude();
-                Log.v(TAG, latitude);
+                latitude = loc.getLatitude();
+                String lat = "Długość : " + latitude;
+                Log.v(TAG, lat);
 
                 /*----------to get City-Name from coordinates ------------- */
 
@@ -193,7 +203,7 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
                     e.printStackTrace();
                 }
 
-                String s = longitude + "\n" + latitude + "\n\n My Current City is: " + cityName;
+                String s = lon + "\n" + lat + "\n\n Obcecne miasto: " + cityName;
                 editLocation.setText(s);
 
             }
@@ -206,16 +216,24 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
         }
 
         public String getCurrentDate(){
+
+            DateFormat df = new SimpleDateFormat("EEE, d MMM yyyy, HH:mm");
+            String date = df.format(Calendar.getInstance().getTime());
+
             Date currentNewDate = new Date();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             String dateString = dateFormat.format(currentNewDate);
-            return dateString;
+            //return dateString + Calendar.getInstance().getTime().toString();
+            return date;
         }
 
-    public void addData(String longitude, String latitude, String cityName, String my_Date) {
+    public void addData(double longitude, double latitude, String cityName, String my_Date) {
 
         if(cityName != "Koniec Swiata") {
             boolean isInsered = db.addData(longitude, latitude, cityName, my_Date);
+
+            MyLocation newLoc = new MyLocation(longitude, latitude, cityName);
+            listaLokalizacji.add(newLoc);
 
             if (isInsered == true) {
                 Toast.makeText(getBaseContext(), "Dane zapisane", Toast.LENGTH_LONG).show();
@@ -227,6 +245,14 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
         }
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
     public void viewAll() {
 
         Toast.makeText(getApplicationContext(),"Co się zobaczyło, to się nie odzobaczy",Toast.LENGTH_LONG).show();
@@ -235,21 +261,22 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
         if(res.getCount() == 0) {
             // show message
             //Toast.makeText(getApplicationContext(),"PUSTO",Toast.LENGTH_SHORT).show();
-            showMessage("Error" , "Nothing found");
+            showMessage("Błąd" , "Nic nie znaleziono");
             return;
         }
 
         StringBuffer buffer = new StringBuffer();
         while( res.moveToNext()) {
-            buffer.append("ID :" + res.getString(0) + "\n");
-            buffer.append("LONGITUDE :" + res.getString(1) + "\n");
-            buffer.append("LATITUDE :" + res.getString(2) + "\n");
-            buffer.append("CITY :" + res.getString(3) + "\n");
-            buffer.append("MY_DATE : " + res.getString(4) + "\n" );
+            buffer.append("ID : " + res.getString(0) + "\n");
+            buffer.append("Szerokość : " + res.getDouble(1) + "\n");
+            buffer.append("Długość : " + res.getDouble(2) + "\n");
+            buffer.append("Miasto : " + res.getString(3) + "\n");
+            buffer.append("Data : " + res.getString(4) + "\n\n" );
         }
 
         // show all data
         showMessage("Data", buffer.toString());
+
     }
 
     public void showMessage(String title, String Message){
@@ -258,5 +285,9 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
+    }
+
+    public ArrayList<MyLocation> getArrayList() {
+        return listaLokalizacji;
     }
 }

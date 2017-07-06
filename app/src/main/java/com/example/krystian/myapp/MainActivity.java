@@ -26,4 +26,32 @@ public class MainActivity extends AppCompatActivity {
         startActivity(gpsIntent);
     }
 
+    public void StartProximity(View v){
+        Context context;
+        context = getApplicationContext();
+        Intent proximityIntent = new Intent(context, ProximityActivity.class);
+        startActivity(proximityIntent);
+    }
+
+    public void StartAccelerometr(View v){
+        Context context;
+        context = getApplicationContext();
+        Intent accelerometrIntent = new Intent(context, AccelometrActivity.class);
+        startActivity(accelerometrIntent);
+    }
+
+    public void StartCompass(View v){
+        Context context;
+        context = getApplicationContext();
+        Intent compassIntent = new Intent(context, CompassActivity.class);
+        startActivity(compassIntent);
+    }
+
+    public void TestMaps(View v){
+        Context context;
+        context = getApplicationContext();
+        Intent mapsIntent = new Intent(context, MapsActivity.class);
+        startActivity(mapsIntent);
+    }
+
 }

@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="WITAM"
+        android:text="Aplikacja sprawdzająca działanie sensorów"
         android:textSize="30dp"
         android:id="@+id/txt1" />
 
@@ -22,8 +22,48 @@
         android:id="@+id/startButton"
         android:layout_below="@+id/txt1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:onClick="StartGPS"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Proximity"
+        android:id="@+id/startProximity"
+        android:layout_below="@+id/startButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:onClick="StartProximity"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Accelerometr"
+        android:id="@+id/startAccelerometr"
+        android:layout_below="@+id/startProximity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:onClick="StartAccelerometr"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Compass"
+        android:id="@+id/startCompass"
+        android:layout_below="@+id/startAccelerometr"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:onClick="StartCompass"/>
+
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="TestMaps"
+        android:id="@+id/GoogleMapsButton"
+        android:layout_below="@+id/startCompass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:onClick="TestMaps"/>
 
 
 </RelativeLayout>

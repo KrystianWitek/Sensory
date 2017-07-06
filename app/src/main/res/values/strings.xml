@@ -5,4 +5,6 @@
     <string name="edittext_hint_new_task">Type here your new task...</string>
     <string name="button_save">Save task</string>
     <string name="button_cancel">Cancel</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="action_settings">Settings</string>
 </resources>

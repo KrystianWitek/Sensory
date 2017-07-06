@@ -12,7 +12,7 @@ import java.util.Date;
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "MyBase2";
+    public static final String DATABASE_NAME = "MyBase3";
     public static final String TABLE_NAME = "locations_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "LONGITUDE";
@@ -30,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "LONGITUDE TEXT, LATITUDE TEXT, CITY TEXT, MY_DATE TEXT)";
+                "LONGITUDE DOUBLE, LATITUDE DOUBLE, CITY TEXT, MY_DATE TEXT)";
         db.execSQL(createTable);
     }
 
@@ -40,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String LONGITUDE, String LATITUDE, String CITY, String MY_DATE){
+    public boolean addData(double LONGITUDE, double LATITUDE, String CITY, String MY_DATE){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 

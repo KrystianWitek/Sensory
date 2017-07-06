@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Get Current Location and City Name"
+        android:text="Pobieranie obecnych współrzędnych geograficznych"
         android:layout_weight="0.20"
         android:gravity="center"
         android:textSize="20sp" />
@@ -31,20 +31,20 @@
             android:id="@+id/btnLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get Location"></Button>
+            android:text="Lokalizacja"></Button>
         <Button
             android:id="@+id/addToBase"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Location">
+            android:text="Zapisz">
         </Button>
         <Button
             android:id="@+id/btnViewBase"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="View All"></Button>
+            android:text="Wyświetl wszystkie"></Button>
 
     </LinearLayout>
 
