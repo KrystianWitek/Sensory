@@ -25,14 +25,5 @@
         android:layout_marginTop="50dp"
         android:onClick="StartGPS"/>
 
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:text="BAZA"
-        android:id="@+id/startDataButton"
-        android:layout_below="@+id/startButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:onClick="StartDataBase"/>
 
 </RelativeLayout>

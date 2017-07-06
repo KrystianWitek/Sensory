@@ -26,21 +26,38 @@
         android:layout_width="fill_parent"
         android:gravity="center"
         android:layout_weight="0.15">
+
         <Button
+            android:id="@+id/btnLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Get Location"
-            android:id="@+id/btnLocation"></Button>
+            android:text="Get Location"></Button>
+        <Button
+            android:id="@+id/addToBase"
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Location">
+        </Button>
+        <Button
+            android:id="@+id/btnViewBase"
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View All"></Button>
+
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/layloadingH"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.20"
-        android:layout_width="fill_parent"
         android:gravity="center">
+
         <ProgressBar
-            android:layout_width="wrap_content"
             android:id="@+id/progressBar1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"></ProgressBar>
     </LinearLayout>
 </LinearLayout>

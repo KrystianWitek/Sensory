@@ -11,7 +11,6 @@ import android.content.pm.ActivityInfo;
 public class MainActivity extends AppCompatActivity {
 
     public Intent gpsIntent;
-    public Intent dataBaseIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +24,6 @@ public class MainActivity extends AppCompatActivity {
         context = getApplicationContext();
         Intent gpsIntent = new Intent(context, GetCurrentLocation.class);
         startActivity(gpsIntent);
-    }
-
-    public void StartDataBase(View v){
-        Context context;
-        context = getApplicationContext();
-        Intent dataBaseIntent = new Intent(context, GetCurrentLocation.class);
-        startActivity(dataBaseIntent);
     }
 
 }
