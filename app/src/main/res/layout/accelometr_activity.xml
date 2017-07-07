@@ -3,11 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wallpaper_phone15"
     android:gravity="center">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#ff3333"
         android:id="@+id/accelerationX"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text = "X"/>
@@ -16,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="30dp"
+        android:textColor="#ffff33"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/accelerationY"
         android:layout_below="@+id/accelerationX"
@@ -25,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="30dp"
+        android:textColor="#ccffff"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_below="@+id/accelerationY"
         android:id="@+id/accelerationZ"

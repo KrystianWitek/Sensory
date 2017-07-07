@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SqLiteTodoManager</string>
+    <string name="app_name">Sensory</string>
     <string name="button_add">New task</string>
     <string name="button_clear">Clear completed</string>
     <string name="edittext_hint_new_task">Type here your new task...</string>

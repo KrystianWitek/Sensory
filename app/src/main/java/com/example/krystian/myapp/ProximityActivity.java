@@ -2,6 +2,7 @@ package com.example.krystian.myapp;
 
 import android.app.Activity;
 import android.app.Service;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -29,12 +30,14 @@ public class ProximityActivity extends Activity implements SensorEventListener{
         sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 
+        if(sensor == null) {
+            Toast.makeText(getBaseContext(),"Proximity nie dziala",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
         textView = (TextView) findViewById(R.id.proximity_text);
 
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-
-        onResume();
-        onPause();
+        sensorManager.registerListener(this, sensor, 90 * 1000 * 1000);
     }
 
     protected void onPause() {
@@ -44,19 +47,16 @@ public class ProximityActivity extends Activity implements SensorEventListener{
 
     protected void onResume() {
         super.onResume();
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     public void onSensorChanged(SensorEvent event) {
         //textView.setText(String.valueOf(event.values[0]));
-        if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {
-            if (event.values[0] >= -SENSOR_SENSITIVITY && event.values[0] <= SENSOR_SENSITIVITY) {
-                //near
-                Toast.makeText(getApplicationContext(), "near", Toast.LENGTH_SHORT).show();
-            } else {
-                //far
-                Toast.makeText(getApplicationContext(), "far", Toast.LENGTH_SHORT).show();
-            }
+        if(event.values[0] < sensor.getMaximumRange()) {
+            // Detected something nearby
+            getWindow().getDecorView().setBackgroundColor(Color.RED);
+        } else {
+            // Nothing is nearby
+            getWindow().getDecorView().setBackgroundColor(Color.GREEN);
         }
     }
 

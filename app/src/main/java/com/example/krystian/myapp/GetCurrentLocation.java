@@ -116,8 +116,8 @@ public class GetCurrentLocation extends Activity implements OnClickListener {
 
             Log.v(TAG, "onClick");
 
-            editLocation.setText("Musisz poruszyć kilka razy telefonem," +
-                    " żeby łatwiej pobrać mi dane :D." + "\n");
+            editLocation.setText("Proszę poruszaj telefonem," +
+                    "abym szybciej znalazł, gdzie się zgubiłeś ;)" + "\n");
 
             pb.setVisibility(View.VISIBLE);
             locationListener = new MyLocationListener();
