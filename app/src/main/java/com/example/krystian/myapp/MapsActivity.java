@@ -49,13 +49,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        double newLatitude = 0;
-        double newLongitude = 20;
-
         // Add a marker in Sydney and move the camera
-        LatLng currentPlace = new LatLng(newLatitude, newLongitude);
-        mMap.addMarker(new MarkerOptions().position(currentPlace).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPlace));
 
        /* newMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             public void onMapLongClick(LatLng latLng) {
@@ -67,10 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         else {
-            LatLng latLng = new LatLng(newLatitude, newLongitude);
-
             mMap.setMyLocationEnabled(true);
-            mMap.addMarker(new MarkerOptions().position(currentPlace).title("My Location"));
         }
     }
 }
